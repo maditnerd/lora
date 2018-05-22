@@ -1,10 +1,12 @@
 Créer un appareil LoRa.
 ----
+![](miniproRFM95_ttn.jpg)
+
 Un appareil (node) LoRa est capable d'émettre des messages radio et d'en recevoir du moment qu'il est proche 
 d'une passerelle LoRa.
 Voici comment fabriquer un appareil capable de parler à une passerelle (gateway) LoRa relié à The Thing Network.
 
-J'ai réussi à transmettre des données depuis cette position 
+J'ai réussi à transmettre des données sur 1km à peu près.
 
 # Création du compte
 Pour exploiter le réseau TTN il faut avoir un compte sur le site https://www.thethingsnetwork.org
