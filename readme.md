@@ -58,7 +58,7 @@ Puis j'ai coupé les câbles à la bonne longueur pour les relier au RFM95
 > - Garder toujours un peu de marge pour pouvoir bouger les câbles
 > - J'aurais du utiliser une stripboard double face pour m'éviter de me prendre la tête, ultérieurement.
 
-![](images/miniproRFM95_ttn_v2_modules.JPG)
+![](images/miniproRFM95_ttn_v2_modules.JPG)   
 Voilà une photo du résultat.
 
 Et un schéma de câblage.
