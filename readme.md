@@ -1,80 +1,97 @@
-Créer un appareil LoRa.
+Créer un node LoRa Arduino Mini Pro 3V/RFM95.
 ----
-![](miniproRFM95_ttn.jpg)
+Voici comment j'ai créé mon premier node LoRa !
 
-Un appareil (node) LoRa est capable d'émettre des messages radio et d'en recevoir du moment qu'il est proche 
-d'une passerelle LoRa.
-Voici comment fabriquer un appareil capable de parler à une passerelle (gateway) LoRa relié à The Thing Network.
+Ce node a été pensé pour être petit et modulaire.
+En effet, la partie radio/microcontrôleurs est séparée de la partie composants afin de pouvoir facilement ajouter des capteurs.
 
-J'ai réussi à transmettre des données sur 1km à peu près.
+* Tout d'abord, nous allons voir la **liste des composants** que j'ai utilisés
+* Puis nous verrons comment j'ai disposé mes **composants** sur une **stripboard**
+* Ensuite j'expliquerais comment j'ai **soudé** le **module radio** à l'arduino
+* Et pour finir, j'ajouterais des **piles AA** pour rendre notre Node portable.
 
-# Création du compte
-Pour exploiter le réseau TTN il faut avoir un compte sur le site https://www.thethingsnetwork.org
+> Comme vous pouvez le voir sur la photo, je compte rajouter **un GPS** pour faire des tests de portée.
 
-## Créer une application
-Aller dans la console pour créer une application.
-https://console.thethingsnetwork.org/
+![](images/miniproRFM95_ttn_v2.jpg)
 
-* Cliquer sur Add Application.
-* Choissisez un nom dans *Application ID*
-* Le reste est prérempli.
+Une photo de la v1
+![](images/miniproRFM95_ttn_v1.jpg)
 
-## Créer un appareil (device)
-Dans votre application, onglet ** Devices **.
+# Liste du matériel
+Pour mon premier node, j'ai utilisé les composants que j'avais à ma disposition.
+* Arduino Mini Pro 3V 2.30$
+* Module RFM95 4.95$
+* Boitier pour 2 piles AA 0.52$
 
-* Cliquez sur *register device*
-* Choissisez un nom dans *Device ID*
-* Cliquer sur les flèches pour générer automatiquement le *Device EUI*
-* Le reste est prérempli.
+Matériels
+* Vis en plastiques
+* Stripboard (double face)
+* Cables (Wire Wrapping Cable AWG30)
+* Broches mâles/femelles
 
-## Mettre en mode ABP.
-Dans le *device overview*, vous avez toutes les informations nécessaires pour programmer votre plateforme.
-Il nous reste à paramétrer notre device en ABP. (Je n'ai pas testé le programme ttn-otaa).
+Optionnels
+* Interrupteur ON/OFF
+* Led/Résistance
 
-* Dans Settings
-* Changer Activation Method sur **ABP**
+Prix : +- 7€
 
-# Choix du Module Radio
-Il faut que notre microcontroleur soit connecté en SPI à un module radio compatible **SemTech SX1276**.    
-C'est le cas par example des modules **RFM95**.   
-Je pense faire mes prochains node sur une base de **Lora32u4** similaire au **Adafruit Feather 32u4 RFM95 LoRa Radio**.
+> À noter qu'il est plus simple de partir d'une plateforme avec un module radio intégré comme le Lora32u4, pour 5€ de plus.
 
-# Test Arduino Mini Pro 3v / RFM95
-N'ayant pas à ma disposition de plateforme avec module radio intégré, j'ai décidé de faire mes essais avec un **Arduino Mini Pro 3V** et un module **RFM95**.
+# Montage
+Maintenant que nous avons vu les composants, je vais vous montrer comment je les ai placés sur ma stripboard pour économiser de l'espace.    
 
-## Branchement
-* NSS  - 6  - Violet
-* RST  - 5  - Bleu
+Le module RFM95 ne peut pas être soudé sur la stripboard, j'ai donc décidé de souder uniquement les 4 broches les plus éloignées pour le maintenir en place.
+J'ai fait de même avec l'arduino.
+
+> * Idéalement on aurait pu visser les composants à la stripboard mais, il n'y a pas de vis sur l'arduino ni le RFM95.
+> * J'ai retourné le module radio pour pouvoir facilement lire le nom des broches 
+
+
+![](images/loraNode.png)
+
+Notre module radio et notre arduino sont maintenant solidement attachés à la stripboard, nous allons pouvoir les relier à l'aide de câbles.
+
+
+# Soudure module Radio / Arduino
+Afin de relier l'arduino au RFM95, j'ai coupé des câbles longs.
+Puis j'ai coupé les câbles à la bonne longueur pour les relier au RFM95
+> - Garder toujours un peu de marge pour pouvoir bouger les câbles
+> - J'aurais du utiliser une stripboard double face pour m'éviter de me prendre la tête, ultérieurement.
+
+![](images/miniproRFM95_ttn_v2_modules.jpg)
+Voilà une photo du résultat.
+
+Et un schéma de câblage.
+![](images/loraNode2.png)
 * DIO0 - 2  - Orange
 * DIO1 - 3  - Jaune
 * DIO2 - 4  - Vert
-* MOSI - 11 - Marron
-* MISO - 12 - Jaune
+* RST  - 5  - Bleu
+* NSS  - 6  - Violet
 * SCK  - 13 - Orange
-
-Je suis parti de ce tutoriel pour essayer de créer un node.
-https://www.thethingsnetwork.org/labs/story/using-adafruit-feather-32u4-rfm95-as-an-ttn-node   
-
-Le README précise que la bibliothèque (libraries) est compatible avec les puces AVR.    
-https://github.com/matthijskooijman/arduino-lmic   
-Il est possible de télécharger directement la bibliothèque dans le logiciel Arduino en cherchant **IBM LMIC**
-
-## Examples/ttn-abp
-
-J'ai utilisé le programme **examples/ttn-abp.ino**.
-
-Il faut changer les trois premières constantes dans le programme.   
-Vous pouvez les trouver dans le **Device Overview**, cliquer sur les crochets pour afficher les valeurs pour le programme.
-```
-//Network Session Key
-static const PROGMEM u1_t NWKSKEY[16] = { 0xC9, 0x58, 0xE7, 0xED, 0x02, 0xBE, 0x68, 0x18, 0xC1, 0x95, 0xCB, 0x6B, 0x6C, 0x34, 0x34, 0x12 };   
-//App Session Key
-static const u1_t PROGMEM APPSKEY[16] = { 0xD4, 0x12, 0x7B, 0xD8, 0xF1, 0x82, 0x74, 0x05, 0xF9, 0xBA, 0x22, 0xF6, 0x60, 0x55, 0x1C, 0x61 };   
-// Device Address 0xDeviceAddress
-static const u4_t DEVADDR = 0x260110B8;   
-```
-
-Dans Data vous devriez recevoir des données.
+* MISO - 12 - Jaune
+* MOSI - 11 - Marron
 
 
+> * Prenez le temps de vérifier à l'aide d'un multimètre les connexions 
+> * Je ne l'ai pas encore fait, mais couper les excédents de câbles au-dessous des composants pour éviter les faux contacts (voir photo suivante)
 
+Voilà mon module radio est soudé, vous pouvez en rester là si vous comptez alimenter votre arduino en USB, sinon nous allons voir comment j'ai alimenté mon node avec deux piles AA.
+
+> Vous pouvez ajouter une antenne faite avec un câble de 8,2cm (pour le 868mhz européen) sur la broche ANA pour améliorer la portée.
+
+# Ajout des piles.
+Pour ajouter les piles, j'ai utilisé un boitier que j'ai fixé à l'aide de vis en plastiques.
+Vous pouvez faire des trous pour les vis avec un drémel, personnellement je me suis contenté de le faire avec un couteau, vu que ma stripboard est facile à percer.
+![](images/miniproRFM95_ttn_v2_side.jpg)
+
+Le boitier de piles se pose au-dessus de l'arduino et du module radio, il n'est pas très solidement fixé mais peut du coup se retirer facilement.
+
+> J'ai remplacé (difficilement) les câbles du boitier de piles avec mes câbles.
+
+# Conclusion
+Voilà comment j'ai créé mon premier node.
+Si vous ne cherchez pas à économiser quelques euros, je vous conseille quand même d'utiliser une plateforme avec un module LoRa intégré.
+
+Le boitier de pile permet de poser le node et vous avez toute la surface avant pour ajouter de nouveaux composants.
+J'ai pour le moment ajouté une LED et un interrupteur (pour le boitier de piles).
