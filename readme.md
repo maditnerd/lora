@@ -12,9 +12,9 @@ En effet, la partie radio/microcontrôleurs est séparée de la partie composant
 
 > Comme vous pouvez le voir sur la photo, je compte rajouter **un GPS** pour faire des tests de portée.
 
-![](images/miniproRFM95_ttn_v2.jpg)
+![](images/miniproRFM95_ttn_v2.jpg)   
 
-Une photo de la v1
+Une photo de la v1   
 ![](images/miniproRFM95_ttn_v1.jpg)
 
 # Liste du matériel
