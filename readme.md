@@ -83,7 +83,7 @@ Voilà mon module radio est soudé, vous pouvez en rester là si vous comptez al
 # Ajout des piles.
 Pour ajouter les piles, j'ai utilisé un boitier que j'ai fixé à l'aide de vis en plastiques.
 Vous pouvez faire des trous pour les vis avec un drémel, personnellement je me suis contenté de le faire avec un couteau, vu que ma stripboard est facile à percer.
-![](images/miniproRFM95_ttn_v2_side.jpg)
+![](images/miniproRFM95_ttn_v2_side.JPG)
 
 Le boitier de piles se pose au-dessus de l'arduino et du module radio, il n'est pas très solidement fixé mais peut du coup se retirer facilement.
 
